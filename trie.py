@@ -10,7 +10,6 @@ class Trie(object):
         self.root = Node(None,None)
     
     def insert(self,root, string, value):
-        
         if string =='':  ## base case
             root.value = value
             return
@@ -19,18 +18,18 @@ class Trie(object):
             next_pointers = self.root.next
         else:
             next_pointers = root.next  
-        for index, c in enumerate(string):
+        for index, char in enumerate(string):
             found = False
-            for  node in next_pointers:
-                 if c == node.char:
+            for node in next_pointers:
+                 if char == node.char:
                      found = True
-                     self.insert(node, string[index+1:], value)
+                     self.insert(node, string[index:], value)
                       
             if not found:
-                if len(string) == 1:
-                    node = Node(c, value)
+                if len(string) == 1 or index + 1 == len(string):
+                    node = Node(char, value)
                 else:
-                    node = Node(c, None)
+                    node = Node(char, None)
                 next_pointers.append(node)
                 next_pointers = node.next
     
@@ -52,13 +51,13 @@ class Trie(object):
                     current_node = node
                     break
             if found:
-                return _get_highest_suggestion(current_node)
+                return self._get_highest_suggestion(current_node)
         return -1
             
     def check(self, string):
         current_node = self.root
         for index, char in enumerate(string):
-            for node in current_node.next_pointers:
+            for node in current_node.next:
                 if node.char == char:
                     current_node = node
                     continue
@@ -68,8 +67,8 @@ class Trie(object):
         return False
     
     def suggestions(self, string):
-        if not self.check(string):
-            return -1
+        #if not self.check(string):
+        #    return -1
         print self.get_next_suggestion(string)
         
         
@@ -83,11 +82,13 @@ print 'Hi, %s.' % name
 '''
 trie = Trie()
 import pdb;pdb.set_trace()
-times, input_strings = map(int, raw_input().split())
-for _ in range(times):
-    char, value = raw_input().split()
-    trie.insert(None, char, int(value))
-for _ in input_strings:
-    data = raw_input()
-    trie.suggestions(data)
+#times, input_strings = map(int, raw_input().split())
+#for _ in range(times):
+ #   char, value = raw_input().split()
+trie.insert(None, 'hackerearth', 10)
+trie.insert(None, 'hackerrank', 9)
+trie.suggestions('hacker')
+#for _ in input_strings:
+#   data = raw_input()
+#    trie.suggestions(data)
     
