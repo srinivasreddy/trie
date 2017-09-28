@@ -4,7 +4,10 @@ class Node(object):
         self.char = char
         self.value = value 
         self.next = []
-        
+
+    def __repr__(self):
+        return "Node({},{},{})".format(self.char, self.value, self.next)
+
 class Trie(object):
     def __init__(self):
         self.root = Node(None,None)
@@ -23,7 +26,7 @@ class Trie(object):
             for node in next_pointers:
                  if char == node.char:
                      found = True
-                     self.insert(node, string[index:], value)
+                     self.insert(node, string[index+1:], value)
                       
             if not found:
                 if len(string) == 1 or index + 1 == len(string):
@@ -34,7 +37,7 @@ class Trie(object):
                 next_pointers = node.next
     
     def _get_highest_suggestion(self, current_node):
-        for  node  in current_node.next_pointers:
+        for  node  in current_node.next:
             if node.value is None:
                 continue
             else:
