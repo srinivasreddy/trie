@@ -12,30 +12,20 @@ class Trie(object):
     def __init__(self):
         self.root = Node(None,None)
     
-    def insert(self,root, string, value):
-        if string =='':  ## base case
-            root["value"] = value
-            return
-        
-        if root is None:
-            next_pointers = self.root.next
-        else:
-            next_pointers = root.next
-        
+    def insert(self, string, value):
+        next_pointers = self.root.next
         index = 0
         while(index<len(string)):
-        	found = False
-        	if string[index] in next_pointers:
-        		found= True
-                break
-            if not found:
+            if string[index] in next_pointers:
+                next_pointers = next_pointers[string[index]].next
+   	    else:
                	if len(string) == 1 or index + 1 == len(string):
-                	node = Node(string[index], value)
+                    node = Node(string[index], value)
                 else:
-                	node = Node(string[index], None)
-                next_pointers[string[index]] = node
-                next_pointers = node.next
-                index = index + 1
+                    node = Node(string[index], None)
+                    next_pointers[string[index]] = node
+                    next_pointers = node.next
+            index = index + 1
     
     def _get_highest_suggestion(self, current_node):
         for  node  in current_node.next:
@@ -89,8 +79,8 @@ import pdb;pdb.set_trace()
 #times, input_strings = map(int, raw_input().split())
 #for _ in range(times):
  #   char, value = raw_input().split()
-trie.insert(None, 'hackerearth', 10)
-trie.insert(None, 'hackerrank', 9)
+trie.insert('hackerearth', 10)
+trie.insert('hackerrank', 9)
 trie.suggestions('hacker')
 #for _ in input_strings:
 #   data = raw_input()
