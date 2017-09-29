@@ -28,15 +28,15 @@ class Trie(object):
             index = index + 1
 
     def print_max(self, next_pointers):
-        #import pdb; pdb.set_trace()
+        max_each = []
         if len(next_pointers) == 0:
             return -1
         for pointer in next_pointers:
             if next_pointers[pointer].value is None and not next_pointers[pointer].next :
                 return -1
             else:
-                return max(next_pointers[pointer].value, self.print_max(next_pointers[pointer].next))
-        return -1
+                max_each.append(max(next_pointers[pointer].value, self.print_max(next_pointers[pointer].next)))
+        return max(max_each)
     
     def suggestions(self, string):
         next_pointers = self.root.next
@@ -59,13 +59,13 @@ name = raw_input()
 print 'Hi, %s.' % name
 '''
 trie = Trie()
-#times, input_strings = map(int, raw_input().split())
-#for _ in range(times):
- #   char, value = raw_input().split()
-trie.insert('hackerearth', 10)
-trie.insert('hackerrank', 9)
+times, input_strings = map(int, raw_input().split())
+for _ in range(times):
+    char, value = raw_input().split()
+#trie.insert('hackerearth', 10)
+#trie.insert('hackerrank', 9)
 print trie.suggestions('hacker')
-#for _ in input_strings:
-#   data = raw_input()
-#    trie.suggestions(data)
+for _ in input_strings:
+    data = raw_input()
+    trie.suggestions(data)
     
