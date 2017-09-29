@@ -26,40 +26,21 @@ class Trie(object):
                 next_pointers[string[index]] = node
                 next_pointers = node.next
             index = index + 1
-    
-    def _get_highest_suggestion(self, current_node):
-        for  node  in current_node.next:
-            if node.value is None:
-                continue
-            else:
-                return max (node.value, self._get_highest_suggestion(node))
-        return -1
 
-    def get_next_suggestion(self, string):
-        next_pointers = self.root.next
-        for index, char in enumerate(string):
-            if char in next_pointers:
-                continue
-            return self._get_highest_suggestion(current_node)
-        return -1
-            
-    def check(self, string):
-        current_node = self.root
-        for index, char in enumerate(string):
-            for node in current_node.next:
-                if node.char == char:
-                    current_node = node
-                    continue
-            if index+1 == len(string):
-                return True
-            return False
-        return False
+    def print_max(string, next_pointers):
+        pass
     
     def suggestions(self, string):
-        #if not self.check(string):
-        #    return -1
-        print self.get_next_suggestion(string)
-        
+        next_pointers = self.root.next
+        index = 0
+        while(index<len(string)):
+            if string[index] not in next_pointers:
+                index = index+1
+                break
+            else:
+                next_pointers = next_pointers[string[index]].next
+                index = index+1
+        return print_max(string[index:], next_pointers)
         
     
         
