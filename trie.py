@@ -50,22 +50,17 @@ class Trie(object):
                 index = index+1
         return self.print_max(next_pointers)
         
-    
-        
-'''
-# Read input from stdin and provide input before running code
 
-name = raw_input()
-print 'Hi, %s.' % name
-'''
+############## MAIN ###############################
+
 trie = Trie()
 times, input_strings = map(int, raw_input().split())
 for _ in range(times):
     char, value = raw_input().split()
-#trie.insert('hackerearth', 10)
+    trie.insert(char, int(value))
 #trie.insert('hackerrank', 9)
 #print trie.suggestions('hacker')
-for _ in input_strings:
+for _ in range(input_strings):
     data = raw_input()
     trie.suggestions(data)
     
