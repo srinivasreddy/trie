@@ -19,12 +19,12 @@ class Trie(object):
             if string[index] in next_pointers:
                 next_pointers = next_pointers[string[index]].next
    	    else:
-               	if len(string) == 1 or index + 1 == len(string):
-                    node = Node(string[index], value)
+                if index + 1 == len(string):
+                    node = Node(string[index], None)
                 else:
                     node = Node(string[index], None)
-                    next_pointers[string[index]] = node
-                    next_pointers = node.next
+                next_pointers[string[index]] = node
+                next_pointers = node.next
             index = index + 1
     
     def _get_highest_suggestion(self, current_node):
