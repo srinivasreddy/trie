@@ -20,7 +20,7 @@ class Trie(object):
                 next_pointers = next_pointers[string[index]].next
    	    else:
                 if index + 1 == len(string):
-                    node = Node(string[index], None)
+                    node = Node(string[index], value)
                 else:
                     node = Node(string[index], None)
                 next_pointers[string[index]] = node
@@ -36,16 +36,11 @@ class Trie(object):
         return -1
 
     def get_next_suggestion(self, string):
-        current_node = self.root
+        next_pointers = self.root.next
         for index, char in enumerate(string):
-            found = False
-            for node in current_node.next:
-                if node.char == char:
-                    found = True
-                    current_node = node
-                    break
-            if found:
-                return self._get_highest_suggestion(current_node)
+            if char in next_pointers:
+                continue
+            return self._get_highest_suggestion(current_node)
         return -1
             
     def check(self, string):
